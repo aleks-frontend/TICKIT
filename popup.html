@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tickit</title>
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<!-- next line is used with the responsive designs -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!--[if lt IE 9]>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+	<script src="https://cdn.jsdelivr.net/css3-mediaqueries/0.1/css3-mediaqueries.min.js"></script>
+<![endif]-->
+
+<link rel="stylesheet" href="css/reset.css" type="text/css" />
+<link rel="stylesheet" href="css/default.css" type="text/css" />	
+<style>
+
+	@font-face {
+		font-family: 'Conv_Lato-Black';
+		src: url('fonts/Lato-Black.eot');
+		src: local('☺'), url('fonts/Lato-Black.woff') format('woff'), url('fonts/Lato-Black.ttf') format('truetype'), url('fonts/Lato-Black.svg') format('svg');
+		font-weight: normal;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: 'Conv_Lato-Regular';
+		src: url('fonts/Lato-Regular.eot');
+		src: local('☺'), url('fonts/Lato-Regular.woff') format('woff'), url('fonts/Lato-Regular.ttf') format('truetype'), url('fonts/Lato-Regular.svg') format('svg');
+		font-weight: normal;
+		font-style: normal;
+	}
+
+	html,
+	body {
+		min-height: 100%;
+	}
+
+	body {
+		background: url(images/body-bg.jpg) no-repeat center;
+		background-size: cover;
+	}
+
+	.popup-overlay {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		font-family: 'Conv_Lato-Regular', sans-serif;
+		background: rgba(0,0,0, 0.5);
+	}
+
+	.popup {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 600px;
+		padding: 20px;
+		background: #fff;
+		border-radius: 10px;
+		-webkit-transform: translate(-50%, -50%);
+		-ms-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+	}
+
+	.popup.wide {
+		width: 700px;
+	}
+
+	.popup-header {
+		padding: 0 0 10px;
+	}
+
+	.popup-header img {
+		max-width: 200px;
+	}
+
+	.popup-content {
+		padding: 0 20px;
+	}
+
+	h2 {
+		font-family: 'Conv_Lato-Black';
+		font-size: 24px;
+		color: #666666;
+	}
+
+	.left-col {
+		float: left;
+		padding-right: 2%;
+		width: 40%;
+		border-right: 2px solid #BBBBBB;
+	}
+
+	.wide .left-col {
+		width: 48%;
+	}
+
+	img.video-thumb {
+		width: 100%;
+	}
+
+	ul.toggle-controls {
+		list-style-type: none;
+		padding: 0;
+		margin: 10px 0 0;
+		font-size: 0;
+		text-align: center;
+	}
+
+	ul.toggle-controls li {
+		display: inline-block;
+	}
+
+	ul.toggle-controls li a {
+		display: block;
+		padding: 5px 10px;
+		font-size: 14px;
+		color: #666666;
+		text-decoration: none;
+		border: 1px solid #e1e1e1;
+		border-radius: 5px;
+		background: #fff;
+		-webkit-transition: all 0.3s ease-in-out 0s;
+		transition: all 0.3s ease-in-out 0s;
+	}
+
+	ul.toggle-controls li a:hover {
+		color: #fff;
+		background: #008D00;
+	}
+
+	ul.toggle-controls li.active a {
+		color: #fff;
+		background: #008D00;
+	}
+
+	ul.toggle-controls li:first-child a {
+		border-right: none;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	ul.toggle-controls li:last-child a {
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+
+	.right-col {
+		position: relative;
+		overflow: hidden;
+		float: right;
+		width: 56%;
+		box-sizing: border-box;
+	}
+
+	.wide .right-col {
+		width: 48%;
+	}
+
+	.right-col form {
+		padding-bottom: 150px;		
+	}
+
+	.right-col form label {
+		display: block;
+		margin: 5px 0;
+		font-size: 16px;
+		color: #666666;
+	}
+
+	.right-col form select {
+		display: block;
+		width: 100%;
+		font-family: 'Conv_Lato-Regular';
+		font-size: 12px;
+	}
+
+	a.create-new {
+		display: block;
+		margin: 70px 0 0;
+		position: relative;
+		padding-left: 40px;
+		font-size: 16px;
+		line-height: 30px;
+		color: #666666;
+		text-decoration: none;
+	}
+
+	a.create-new::before {
+		content: '';
+		display: block;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 30px;
+		height: 30px;
+		background: url(images/plus-icon.png) no-repeat center;
+		background-size: 100%;
+	}
+
+	.bottom-controls {
+		position: absolute;
+		overflow: hidden;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+
+	.right-col form input[type="text"] {
+		display: block;
+		padding: 0 5px;
+		width: 100%;
+		height: 30px;
+		border: 1px solid #BBBBBB;
+		border-radius: 3px;
+		box-sizing: border-box;
+	}
+
+	.right-col form input[type="submit"],
+	.right-col form input[type="reset"] {
+		display: inline-block;
+		float: right;
+		padding: 5px 20px;
+		font-size: 18px;
+		color: #fff;
+		background: #008D00;
+		opacity: 1;
+		border: none;
+		border-radius: 3px;
+		cursor: pointer;
+		-webkit-transition: all 0.3s ease-in-out 0s;
+		transition: all 0.3s ease-in-out 0s;
+	}
+
+	.right-col form input[type="submit"]:hover,
+	.right-col form input[type="reset"]:hover{
+		opacity: 0.8;
+	}
+
+	.right-col form input[type="reset"] {
+		float: left;
+		color: #666666;
+		background: #DFDFD0;
+	}
+
+	form.create-category {
+		display: block;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: auto;
+		right: 0;
+		width: 100%;
+		background: #fff;
+		-webkit-transition: all 0.3s ease-in-out 0s;
+		transition: all 0.3s ease-in-out 0s;
+	}
+
+	form.create-category.hidden {
+		right: -100%;
+	}
+
+	form.create-category .bottom-controls {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+
+	/* Custom Select */
+
+	span.customSelect {
+		font-size:11px;
+		background-color: #dfdfd0;
+		color:#7c7c7c;
+		padding:5px 7px;
+		border:1px solid #666666;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		border-radius: 5px 5px;
+	}
+
+	span.customSelect.changed {
+		background-color: #f0dea4;
+	}
+
+	.customSelectInner {
+		background:url(images/customSelect-arrow.gif) no-repeat center right;
+	}
+
+	/* some extra coding for divs that contain floated child divs and some universal classes */
+
+	.group:after {
+	  content: "."; 
+	  display: block; 
+	  height: 0; 
+	  clear: both; 
+	  visibility: hidden;
+	}
+
+	/* Responsive Styling */
+
+	@media screen and (max-width: 760px) {
+
+		body {
+			background-attachment: fixed;
+		}
+
+		.popup-overlay {
+			position: absolute;
+		}
+
+		.popup {
+			position: relative;
+			margin: 20px auto;
+			top: auto;
+			left: auto;
+			-webkit-transform: translate(0, 0);
+			-ms-transform: translate(0, 0);
+			transform: translate(0, 0);
+		}
+
+		.popup{
+			box-sizing: border-box;
+			width: 90%;
+		}
+
+		.popup-header img {
+			max-width: 150px;
+		}
+
+		.popup-content {
+			padding: 0;
+		}
+
+	}
+
+	@media screen and (max-width: 420px) {
+
+		.left-col {
+			float: none;
+			padding-right: 0;
+			padding-bottom: 20px;
+			border-bottom: 2px solid #000;
+			width: 100%;
+			height: auto !important;
+			border-right: none;
+		}
+
+		.right-col {
+			float: none;
+			padding-top: 20px;
+			width: 100%;
+			height: auto !important;
+		}
+
+	}
+
+</style>
+</head>
+<body>	
+	<div class="popup-overlay">
+		<div class="popup">
+			<div class="popup-header">
+				<a href="#" class="logo"><img src="images/logo.png" alt="Logo" /></a>
+			</div><!-- end popup-header -->
+			<div class="popup-content">
+				<h2>Save this video</h2>
+				<div class="cols-wrapper group">
+					<div class="left-col">
+						<div class="video-wrapper">
+							<img src="images/video-thumb1.png" alt="Video thumb" class="video-thumb" />
+							<ul class="toggle-controls">
+								<li class="active"><a href="#">Public</a></li>
+								<li><a href="#">Private</a></li>
+							</ul><!-- end toggle-controls -->
+						</div><!-- end video-wrapper -->
+					</div><!-- end left-col -->
+					<div class="right-col">
+						<form action="#" class="choose-category">
+							<label for="#">Choose category</label>
+							<select class="styled" name="#" id="#">
+								<option value="mau1">mau1</option>
+								<option value="mau2">mau2</option>
+								<option value="mau3">mau3</option>
+								<option value="mau4">mau4</option>
+							</select>
+							<a href="#" class="create-new">or create new</a>
+							<div class="bottom-controls">
+								<input type="reset" value="Cancel" />
+								<input type="submit" value="Save" />
+							</div><!-- end bottom-controls -->
+						</form>
+						<form action="#" class="create-category hidden">
+							<label for="#">Create category</label>
+							<input type="text" placeholder="Your new category" />
+							<div class="bottom-controls">
+								<input type="reset" value="Cancel" />
+								<input type="submit" value="Save" />
+							</div><!-- end bottom-controls -->
+						</form>
+					</div><!-- end right-col -->
+				</div><!-- end cols-wrapper -->
+			</div><!-- end popup-content -->
+		</div><!-- end popup -->
+	</div><!-- end popup-overlay -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="js/jquery.customSelect.min.js"></script>
+<script src="js/jquery.fitvids.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+
+		//  Setting Dynamic Equal Heights Of the Columns
+		$(window).on('resize', function(){
+			$('.cols-wrapper > div').css({
+				height: 'auto'
+			});	
+
+			var maxHeight = 0;
+			$('.cols-wrapper > div').each(function(){
+				var currentHeight = $(this).height();
+
+				if ( currentHeight > maxHeight ) {
+					maxHeight = currentHeight;
+				}
+			});
+
+			$('.cols-wrapper > div').css('height', maxHeight);
+		}).trigger('resize');
+
+		// Showing and hiding 'Add Category' form
+		$('a.create-new').on('click', function(e){
+			$('form.create-category').removeClass('hidden');
+
+			e.preventDefault();
+		});
+
+		$('form.create-category input[type="reset"]').on('click', function(e){
+			$('form.create-category').addClass('hidden');		
+
+			e.preventDefault();
+		})
+
+		// Making Youtube Video responsive
+		$(".video-wrapper").fitVids();
+
+		// Toggling 'Public/Private'
+		$('ul.toggle-controls li a').on('click', function(e){
+			$('ul.toggle-controls li').removeClass('active');
+			$(this).parent('li').addClass('active');
+
+			e.preventDefault();
+		})
+
+		// Creating Styled Select
+		$('select.styled').customSelect();
+
+	});
+</script>
+</body>
+</html>
